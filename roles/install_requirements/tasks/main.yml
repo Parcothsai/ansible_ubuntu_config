@@ -1,0 +1,23 @@
+---
+# tasks file for install_requirements
+- name: Update apt_packages
+  apt:
+    update_cache: yes
+  become: True
+
+- name: Install apt_packages
+  apt:
+    name: "{{ item }}"
+    state: present
+  with_items: 
+    - "{{ apt_packages }}"
+  become: True
+
+
+- name: Install snap_packages
+  snap:
+    name: "{{ item }}"
+    state: present
+  with_items: 
+    - "{{ snap_packages }}"
+  become: True

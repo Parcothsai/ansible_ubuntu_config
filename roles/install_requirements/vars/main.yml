@@ -1,0 +1,4 @@
+---
+# vars file for install_requirements
+apt_packages: ["python3", "guake", "zsh", "tmux", "curl"]
+snap_packages: ["sublime-text", "bitwarden"]

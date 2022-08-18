@@ -20,5 +20,5 @@ Change template_local.ini -> local.ini and update informations
 Execute playbook
 
 ```bash
-ansible-playbook -i local.ini playbook.yml --diff -vv --ask-become-pass
+ansible-playbook -i local.ini playbook.yml --diff -vv
 ```

@@ -1,0 +1,12 @@
+---
+
+- name: Include task asserts.yml.
+  include_tasks:
+    file: "asserts.yml"
+
+- name: Include task install_aws_cli.yml.
+  include_tasks:
+    file: "install_aws_cli.yml"
+  when: 
+    - not aws_install_dir.stat.exists
+    - not aws_cli_bin.stat.exists

@@ -1,0 +1,15 @@
+---
+- name: Ensure unzip is installed
+  apt:
+    name: unzip
+    state: present
+
+- name: Check if aws install dir exist.
+  stat:
+    path: "{{ aws_cli_install_dir }}"
+  register: aws_install_dir
+
+- name: Check if aws cli bin exist.
+  stat:
+    path: "{{ aws_cli_bin_dir }}/aws"
+  register: aws_cli_bin

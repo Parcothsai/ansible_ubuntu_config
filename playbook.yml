@@ -1,0 +1,83 @@
+---
+
+- hosts: all
+  become: false
+  connection: local
+  vars:
+    - apt_packages: ["python3", "guake", "zsh", "tmux", "curl"]
+    - snap_packages: ["sublime-text", "bitwarden"]
+
+  tasks:
+    # - name: Update apt_packages
+    #   apt:
+    #     update_cache: yes
+    #   become: True
+
+    # - name: Install apt_packages
+    #   apt:
+    #     name: "{{ item }}"
+    #     state: present
+    #   with_items: 
+    #     - "{{ apt_packages }}"
+    #   become: True
+
+
+    # - name: Install apt_packages
+    #   snap:
+    #     name: "{{ item }}"
+    #     state: present
+    #   with_items: 
+    #     - "{{ snap_packages }}"
+    #   become: True
+
+    # - name: Check if ohmyzsh repo's git is cloned
+    #   stat:
+    #     path: "{{ ansible_env.HOME }}/.oh-my-zsh"
+    #   register: oh_my_zsh
+
+    # - name: Git clone oh-my-zsh in $HOME if not installed
+    #   shell:
+    #     cmd: |
+    #       sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+    #   when: not oh_my_zsh.stat.exists
+
+    # - name: Git clone https://github.com/junegunn/fzf.git
+    #   git:
+    #    repo: "https://github.com/junegunn/fzf.git"
+    #    depth: "1"
+    #    dest: "{{ ansible_env.HOME }}/.fzf"
+
+    # - name: Install fzf for USER
+    #   shell:
+    #    chdir: "{{ ansible_env.HOME }}/.fzf"
+    #    cmd: "./install --all"
+
+    - name: Copy files on $HOME
+      copy:
+        backup: yes
+        dest: "{{ ansible_env.HOME }}/.{{ item }}"
+        group: "{{ ansible_env.USER }}"
+        owner: "{{ ansible_env.USER }}"
+        remote_src: false
+        src: "{{ item }}"
+      with_items:
+        - "tmux.conf.local"
+        - "zshrc"
+        - "bashrc"
+    
+    - name: Install terraform autocomplete
+      shell:
+        cmd: |
+          terraform -install-autocomplete
+  
+  # roles:
+  #   - role: geerlingguy.docker
+  #     become: yes
+  #     vars:
+  #       docker_users: 
+  #         - "{{ ansible_env.USER }}"
+  #   - role: diodonfrost.terraform
+  #     become: yes
+  roles:
+    - role: aws_cli
+      become: yes

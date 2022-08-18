@@ -1,0 +1,4 @@
+---
+roles:
+- geerlingguy.docker
+- diodonfrost.terraform

@@ -1,0 +1,20 @@
+---
+
+
+- name: Download aws cli zip file
+  get_url:
+    url: "{{ aws_cli_download_url }}/{{ aws_cli_zip_package }}"
+    dest: "{{ aws_cli_download_dir }}/{{ aws_cli_zip_output_name }}.zip"
+
+- name: Unzip aws cli zip file
+  unarchive:
+    remote_src: "yes"
+    src: "{{ aws_cli_download_dir }}/{{ aws_cli_zip_output_name }}.zip"
+    dest: "{{ aws_cli_download_dir }}"
+
+- name: Install aws cli bin
+  shell:
+    cmd: |
+      ./aws/install --install-dir {{ aws_cli_install_dir }} --bin-dir {{ aws_cli_bin_dir }}
+    chdir: "{{ aws_cli_download_dir }}"
+  become: true

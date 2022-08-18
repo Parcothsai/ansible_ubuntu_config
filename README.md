@@ -15,8 +15,14 @@ Install roles
 ansible-galaxy role install -r requirements.yml
 ```
 
-Change template_local.ini -> local.ini and update informations
 
+## HOW TO USE
+
+```bash
+git clone https://github.com/Parcothsai/ansible_ubuntu_config.git
+cd ansible_ubuntu_config
+cp template_local.ini local.ini
+```
 Execute playbook
 
 ```bash

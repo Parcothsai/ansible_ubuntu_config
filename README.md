@@ -9,13 +9,6 @@ Install ansible
 python3 -m pip install --user ansible
 ```
 
-Install roles
-
-```bash
-ansible-galaxy role install -r requirements.yml
-```
-
-
 ## HOW TO USE
 
 ```bash
@@ -26,5 +19,7 @@ cp template_local.ini local.ini
 Execute playbook
 
 ```bash
+
+ansible-galaxy role install -r requirements.yml
 ansible-playbook -i local.ini playbook.yml --diff -vv
 ```
